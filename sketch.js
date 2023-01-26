@@ -3,7 +3,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(220);
   fill("black");
   ellipse(50,50,80,80);
 }
