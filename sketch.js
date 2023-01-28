@@ -1,8 +1,9 @@
 let en1k, en10k, en25k, en450k, latex;
 let correct, wrong;
-let button20, button50, button80,restartbutton;
-let words, wordcnt = 20, stringsofar = "",errors = "", index = 0, ydivider = 20*20*0.000444444 + 20*-0.00777778 + 2.77778
+let button10, button25, button50,restartbutton;
+let words, wordcnt = 25, stringsofar = "",errors = "", index = 0, ydivider = 25*25*0.000444444 + 25*-0.00777778 + 2.77778
 let starttime, endtime, hasstarted = false,ended = false,deltatime;
+let errorcnt = 0, correctcnt = 0;
 let invalidkeys = [9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 173, 174, 175, 181, 182, 183, 224, 225, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255];
 function preload() {
   en1k = loadJSON("scripts/english_1k.json")
@@ -12,9 +13,9 @@ function preload() {
   latex = loadJSON("scripts/code_latex.json")
   correct = color("#d1d0c5")
   wrong = color("#ca4754")
-  button20 = new Clickable();
+  button10 = new Clickable();
+  button25 = new Clickable();
   button50 = new Clickable();
-  button80 = new Clickable();
   restartbutton = new Clickable();
   restartbutton.image = loadImage("scripts/restart.png");
 }
@@ -22,10 +23,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#323437");
   setwords(wordcnt);
-  setbutton(button20, width / 16 + 35, height / 8 + 35, "20")
-  button20.stroke = "#d5ad16";
-  setbutton(button50, width / 16 + 35, height / 8 + 87, "50")
-  setbutton(button80, width / 16 + 35, height / 8 + 139, "80")
+  setbutton(button10, width / 16 + 35, height / 8 + 35, "10")
+  setbutton(button25, width / 16 + 35, height / 8 + 87, "25")
+  setbutton(button50, width / 16 + 35, height / 8 + 139, "50")
+  button25.stroke = "#d5ad16";
 }
 function setwords(wordcntr) {
   words = random(latex.words)
@@ -49,9 +50,9 @@ function setbutton(button, x, y, text) {
   button.stroke = "#323437";
   button.text = text;
   button.onPress = function () {
-    button20.stroke = "#323437";
+    button10.stroke = "#323437";
+    button25.stroke = "#323437";
     button50.stroke = "#323437";
-    button80.stroke = "#323437";
     button.stroke = "#d5ad16";
     wordcnt = int(text);
     setwords(wordcnt);
@@ -69,15 +70,19 @@ function draw() {
     fill(correct);
     textSize(width / height * 11);
     text("Length of text: ", width / 16, height / 8);
-    button20.draw();
+    button10.draw();
+    button25.draw();
     button50.draw();
-    button80.draw();
     textWrap(CHAR);
     write(words, color("#646669"));
     write(stringsofar, correct);
     write(errors, wrong);
   }
-    restartbutton.locate(width * 3/4 + width/12, height *7/16);
+  else{
+    text("Time: " + deltatime + "s", width * 5/6, height * 5/16);
+    text("WPM: " + round(wordcnt*60/deltatime), width * 5/6, height * 6/16);
+    text("Accuracy: " + round(correctcnt/(correctcnt+errorcnt)*100) + "%", width * 5/6, height * 7/16);
+    restartbutton.locate(width * 5/6, height *8/16);
     restartbutton.resize(50, 50);
     restartbutton.fitImage = true;
     restartbutton.draw();
@@ -85,6 +90,8 @@ function draw() {
     restartbutton.cornerRadius = 0;
     restartbutton.imageScale = 2.0;
     restartbutton.onPress = function () {
+      errorcnt = 0;
+      correctcnt = 0;
       stringsofar = "";
       errors = "";
       index = 0;
@@ -93,6 +100,7 @@ function draw() {
       setwords(wordcnt);
       ydivider = wordcnt*wordcnt*0.000444444 + wordcnt*-0.00777778 + 2.77778
     }
+  }
 }
 function keyPressed() {
   if(ended){
@@ -115,11 +123,13 @@ function keyPressed() {
     stringsofar = stringsofar + key;
     errors = errors + "\0";
     index++;
+    correctcnt++;
   }
   else if(key == " " && words[index] == "\0"){
     stringsofar = stringsofar + key;
     errors = errors + "\0";
     index++;
+    correctcnt++;
   }
   else {
     if(words[index] == "\0"){
@@ -128,15 +138,16 @@ function keyPressed() {
     else errors = errors + words[index];
     stringsofar = stringsofar + "\0";
     index++;
+    errorcnt++;
   }
   if(index == words.length){
     background("#323437");
     fill(correct);
     textSize(width / height * 11);
     text("Length of text: ", width / 16, height / 8);
-    button20.draw();
+    button10.draw();
+    button25.draw();
     button50.draw();
-    button80.draw();
     textWrap(CHAR);
     write(words, color("#646669"));
     write(stringsofar, correct);
@@ -147,9 +158,5 @@ function keyPressed() {
     deltatime = round((endtime - starttime) / 100);
     deltatime = deltatime / 10;
     console.log(deltatime);
-    word = "";
-    stringsofar = "";
-    errors = "";
-    index = 0;
   }
 }
