@@ -15,6 +15,8 @@ function preload() {
   button20 = new Clickable();
   button50 = new Clickable();
   button80 = new Clickable();
+  restartbutton = new Clickable();
+  restartbutton.image = loadImage("scripts/restart.png");
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -28,7 +30,7 @@ function setup() {
 function setwords(wordcntr) {
   words = random(latex.words)
   for (let i = 0; i < wordcntr; i++) {
-    words = words + " " + random(latex.words)
+    words = words + "\0" + random(latex.words)
   }
 }
 function write(str, colored) {
@@ -75,6 +77,22 @@ function draw() {
     write(stringsofar, correct);
     write(errors, wrong);
   }
+    restartbutton.locate(width * 3/4 + width/12, height *7/16);
+    restartbutton.resize(50, 50);
+    restartbutton.fitImage = true;
+    restartbutton.draw();
+    restartbutton.text = "";
+    restartbutton.cornerRadius = 0;
+    restartbutton.imageScale = 2.0;
+    restartbutton.onPress = function () {
+      stringsofar = "";
+      errors = "";
+      index = 0;
+      hasstarted = false;
+      ended = false;
+      setwords(wordcnt);
+      ydivider = wordcnt*wordcnt*0.000444444 + wordcnt*-0.00777778 + 2.77778
+    }
 }
 function keyPressed() {
   if(ended){
@@ -98,8 +116,13 @@ function keyPressed() {
     errors = errors + "\0";
     index++;
   }
+  else if(key == " " && words[index] == "\0"){
+    stringsofar = stringsofar + key;
+    errors = errors + "\0";
+    index++;
+  }
   else {
-    if(words[index] == " "){
+    if(words[index] == "\0"){
       errors = errors + "_";
     }
     else errors = errors + words[index];
