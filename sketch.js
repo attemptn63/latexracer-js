@@ -20,10 +20,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#323437");
   setwords(wordcnt);
-  setbutton(button50, width / 16 + 35, height / 8, "50")
+  setbutton(button50, width / 16 + 35, height / 8 + 35, "50")
   button50.stroke = "#d5ad16";
-  setbutton(button100, width / 16 + 35, height / 8 + 52, "100")
-  setbutton(button120, width / 16 + 35, height / 8 + 104, "120")
+  setbutton(button100, width / 16 + 35, height / 8 + 87, "100")
+  setbutton(button120, width / 16 + 35, height / 8 + 139, "120")
 }
 function setwords(wordcntr) {
   words = random(latex.words)
@@ -36,7 +36,7 @@ function write(str, colored) {
   textSize(width / height * 11);
   fill(colored);
   textFont("Inconsolata")
-  text(str, width / 4, height / (ydivider) - 35, width / 2)
+  text(str, width / 4, height / (ydivider), width / 2)
   pop();
 }
 function setbutton(button, x, y, text) {
@@ -63,16 +63,20 @@ function draw() {
   background("#323437");
   fill(correct);
   textSize(width / height * 11);
-  text("Length of text: ", width / 16, height / 8 - 35);
+  text("Length of text: ", width / 16, height / 8);
   button50.draw();
   button100.draw();
   button120.draw();
+  textWrap(CHAR);
   write(words, color("#646669"));
   write(stringsofar, correct);
   write(errors, wrong);
 }
 function keyPressed() {
   if (invalidkeys.includes(keyCode)) {
+    return;
+  }
+  if(index > words.length){
     return;
   }
   if(!hasstarted){
@@ -91,7 +95,10 @@ function keyPressed() {
     index++;
   }
   else {
-    errors = errors + words[index];
+    if(words[index] == " "){
+      errors = errors + "_";
+    }
+    else errors = errors + words[index];
     stringsofar = stringsofar + "\0";
     index++;
   }
@@ -99,5 +106,6 @@ function keyPressed() {
     endtime = millis();
     hasstarted = false;
     console.log((endtime - starttime)/1000)
+    index++
   }
 }
