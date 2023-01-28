@@ -23,9 +23,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#323437");
   setwords(wordcnt);
-  setbutton(button10, width / 16 + 35, height / 8 + 35, "10")
-  setbutton(button25, width / 16 + 35, height / 8 + 87, "25")
-  setbutton(button50, width / 16 + 35, height / 8 + 139, "50")
+  setbutton(button10, width / 16 + 35, height / 3.5 + 35, "10")
+  setbutton(button25, width / 16 + 35, height / 3.5 + 87, "25")
+  setbutton(button50, width / 16 + 35, height / 3.5 + 139, "50")
   button25.stroke = "#d5ad16";
 }
 function setwords(wordcntr) {
@@ -49,6 +49,7 @@ function setbutton(button, x, y, text) {
   button.textColor = correct
   button.stroke = "#323437";
   button.text = text;
+  button.textSize = 20;
   button.onPress = function () {
     button10.stroke = "#323437";
     button25.stroke = "#323437";
@@ -69,7 +70,7 @@ function draw() {
     background("#323437");
     fill(correct);
     textSize(width / height * 11);
-    text("Length of text: ", width / 16, height / 8);
+    text("Length of text: ", width / 16, height / 3.5);
     button10.draw();
     button25.draw();
     button50.draw();
