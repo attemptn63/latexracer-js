@@ -1,8 +1,8 @@
 let en1k, en10k, en25k, en450k, latex;
 let correct, wrong;
-let button10, button25, button50,restartbutton;
-let words, wordcnt = 25, stringsofar = "",errors = "", index = 0, ydivider = 25*25*0.000444444 + 25*-0.00777778 + 2.77778
-let starttime, endtime, hasstarted = false,ended = false,deltatime;
+let button10, button25, button50, restartbutton;
+let words, wordcnt = 25, stringsofar = "", errors = "", index = 0, ydivider = 25 * 25 * 0.000444444 + 25 * -0.00777778 + 2.77778
+let starttime, endtime, hasstarted = false, ended = false, deltatime;
 let errorcnt = 0, correctcnt = 0;
 let invalidkeys = [9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 173, 174, 175, 181, 182, 183, 224, 225, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255];
 function preload() {
@@ -62,11 +62,11 @@ function setbutton(button, x, y, text) {
     index = 0;
     hasstarted = false;
     ended = false;
-    ydivider = wordcnt*wordcnt*0.000444444 + wordcnt*-0.00777778 + 2.77778
+    ydivider = wordcnt * wordcnt * 0.000444444 + wordcnt * -0.00777778 + 2.77778
   }
 }
 function draw() {
-  if(!ended){
+  if (!ended) {
     background("#323437");
     fill(correct);
     textSize(width / height * 11);
@@ -79,11 +79,11 @@ function draw() {
     write(stringsofar, correct);
     write(errors, wrong);
   }
-  else{
-    text("Time: " + deltatime + "s", width * 5/6, height * 5/16);
-    text("WPM: " + round(wordcnt*60/deltatime), width * 5/6, height * 6/16);
-    text("Accuracy: " + round(correctcnt/(correctcnt+errorcnt)*100) + "%", width * 5/6, height * 7/16);
-    restartbutton.locate(width * 5/6, height *8/16);
+  else {
+    text("Time: " + deltatime + "s", width * 5 / 6, height * 5 / 16);
+    text("WPM: " + round(wordcnt * 60 / deltatime), width * 5 / 6, height * 6 / 16);
+    text("Accuracy: " + round(correctcnt / (correctcnt + errorcnt) * 100) + "%", width * 5 / 6, height * 7 / 16);
+    restartbutton.locate(width * 5 / 6, height * 8 / 16);
     restartbutton.resize(50, 50);
     restartbutton.fitImage = true;
     restartbutton.draw();
@@ -99,22 +99,22 @@ function draw() {
       hasstarted = false;
       ended = false;
       setwords(wordcnt);
-      ydivider = wordcnt*wordcnt*0.000444444 + wordcnt*-0.00777778 + 2.77778
+      ydivider = wordcnt * wordcnt * 0.000444444 + wordcnt * -0.00777778 + 2.77778
     }
   }
 }
 function keyPressed() {
-  if(ended){
+  if (ended) {
     return;
   }
   if (invalidkeys.includes(keyCode)) {
     return;
   }
-  if(!hasstarted){
+  if (!hasstarted) {
     starttime = millis();
     hasstarted = true;
   }
-  if(keyCode == BACKSPACE){
+  if (keyCode == BACKSPACE) {
     stringsofar = stringsofar.substring(0, stringsofar.length - 1);
     errors = errors.substring(0, errors.length - 1);
     index--;
@@ -126,14 +126,14 @@ function keyPressed() {
     index++;
     correctcnt++;
   }
-  else if(key == " " && words[index] == "\0"){
+  else if (key == " " && words[index] == "\0") {
     stringsofar = stringsofar + key;
     errors = errors + "\0";
     index++;
     correctcnt++;
   }
   else {
-    if(words[index] == "\0"){
+    if (words[index] == "\0") {
       errors = errors + "_";
     }
     else errors = errors + words[index];
@@ -141,7 +141,7 @@ function keyPressed() {
     index++;
     errorcnt++;
   }
-  if(index == words.length){
+  if (index == words.length) {
     background("#323437");
     fill(correct);
     textSize(width / height * 11);
