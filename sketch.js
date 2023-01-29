@@ -145,7 +145,7 @@ function keyPressed() {
     background("#323437");
     fill(correct);
     textSize(width / height * 11);
-    text("Length of text: ", width / 16, height / 8);
+    text("Length of text: ", width / 16, height / 3.5);
     button10.draw();
     button25.draw();
     button50.draw();
