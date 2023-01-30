@@ -124,7 +124,7 @@ function keyPressed() {
   }
   else if (key == words[index]) {
     stringsofar = stringsofar + key;
-    errors = errors.padEnd(1," ");
+    errors = errors + "\0";
     index++;
     correctcnt++;
   }
@@ -133,7 +133,7 @@ function keyPressed() {
       errors = errors + "_";
     }
     else errors = errors + words[index];
-    stringsofar = stringsofar + words[index];
+    stringsofar = stringsofar + "\0";
     index++;
     errorcnt++;
   }
