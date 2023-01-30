@@ -124,7 +124,7 @@ function keyPressed() {
   }
   else if (key == words[index]) {
     stringsofar = stringsofar + key;
-    errors = errors + " ";
+    errors = errors + "\0";
     index++;
     correctcnt++;
   }
