@@ -119,6 +119,12 @@ function keyPressed() {
       stringsofar = stringsofar.substring(0, stringsofar.length - 1);
       errors = errors.substring(0, errors.length - 1);
       index--;
+      if(stringsofar.charAt(stringsofar.length - 1) == "‎"){
+        stringsofar = stringsofar.substring(0, stringsofar.length - 1);
+      }
+      if(errors.charAt(errors.length - 1) == "‎"){
+        errors = errors.substring(0, errors.length - 1);
+      }
     }
     return;
   }
