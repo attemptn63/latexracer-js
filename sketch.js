@@ -126,12 +126,6 @@ function keyPressed() {
     index++;
     correctcnt++;
   }
-  else if (key == " " && words[index] == " ") {
-    stringsofar = stringsofar + key;
-    errors = errors + " ";
-    index++;
-    correctcnt++;
-  }
   else {
     if (words[index] == " ") {
       errors = errors + "_";
