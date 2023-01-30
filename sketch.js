@@ -137,7 +137,7 @@ function keyPressed() {
       errors = errors + "_";
     }
     else errors = errors + words[index];
-    stringsofar = stringsofar + " ";
+    stringsofar = stringsofar + words[index];
     index++;
     errorcnt++;
   }
