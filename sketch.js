@@ -31,7 +31,7 @@ function setup() {
 function setwords(wordcntr) {
   words = random(latex.words)
   for (let i = 0; i < wordcntr; i++) {
-    words = words + "\0" + random(latex.words)
+    words = words + " " + random(latex.words)
   }
 }
 function write(str, colored) {
@@ -122,22 +122,22 @@ function keyPressed() {
   }
   else if (key == words[index]) {
     stringsofar = stringsofar + key;
-    errors = errors + "\0";
+    errors = errors + " ";
     index++;
     correctcnt++;
   }
-  else if (key == " " && words[index] == "\0") {
+  else if (key == " " && words[index] == " ") {
     stringsofar = stringsofar + key;
-    errors = errors + "\0";
+    errors = errors + " ";
     index++;
     correctcnt++;
   }
   else {
-    if (words[index] == "\0") {
+    if (words[index] == " ") {
       errors = errors + "_";
     }
     else errors = errors + words[index];
-    stringsofar = stringsofar + "\0";
+    stringsofar = stringsofar + " ";
     index++;
     errorcnt++;
   }
