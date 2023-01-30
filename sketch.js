@@ -115,9 +115,11 @@ function keyPressed() {
     hasstarted = true;
   }
   if (keyCode == BACKSPACE) {
-    stringsofar = stringsofar.substring(0, stringsofar.length - 1);
-    errors = errors.substring(0, errors.length - 1);
-    index--;
+    if(stringsofar.length != 0){
+      stringsofar = stringsofar.substring(0, stringsofar.length - 1);
+      errors = errors.substring(0, errors.length - 1);
+      index--;
+    }
     return;
   }
   else if (key == words[index]) {
