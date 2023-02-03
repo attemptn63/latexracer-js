@@ -69,7 +69,7 @@ function draw() {
   if (!ended) {
     background("#323437");
     fill(correct);
-    textSize(width / height * 11);
+    textSize(ceil(width / height * 11));
     text("Length of text: ", width / 16, height / 3.5);
     button10.draw();
     button25.draw();
@@ -116,21 +116,25 @@ function keyPressed() {
   }
   if (keyCode == BACKSPACE) {
     if(stringsofar.length != 0){
-      stringsofar = stringsofar.substring(0, stringsofar.length - 1);
-      errors = errors.substring(0, errors.length - 1);
-      index--;
       if(stringsofar.charAt(stringsofar.length - 1) == "‎"){
+        stringsofar = stringsofar.substring(0, stringsofar.length - 3);
+      }
+      else{
         stringsofar = stringsofar.substring(0, stringsofar.length - 1);
       }
       if(errors.charAt(errors.length - 1) == "‎"){
+        errors = errors.substring(0, errors.length - 3);
+      }
+      else{
         errors = errors.substring(0, errors.length - 1);
       }
+      index--;
     }
     return;
   }
   else if (key == words[index]) {
     stringsofar = stringsofar + key;
-    errors = errors + "‎ ";
+    errors = errors + "‎ ‎";
     index++;
     correctcnt++;
   }
@@ -139,7 +143,7 @@ function keyPressed() {
       errors = errors + "_";
     }
     else errors = errors + words[index];
-    stringsofar = stringsofar + "‎ ";
+    stringsofar = stringsofar + "‎ ‎";
     index++;
     errorcnt++;
   }
