@@ -4,6 +4,7 @@ let button10, button25, button50, restartbutton;
 let words, wordcnt = 25, stringsofar = "", errors = "", index = 0, ydivider = 25 * 25 * 0.000444444 + 25 * -0.00777778 + 2.77778
 let starttime, endtime, hasstarted = false, ended = false, deltatime;
 let errorcnt = 0, correctcnt = 0;
+//keys that should not be counted as errors (eg. shift, ctrl, alt, etc.)
 let invalidkeys = [9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 173, 174, 175, 181, 182, 183, 224, 225, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255];
 function preload() {
   //preloading all the json files that contain the words and some colours and buttons
